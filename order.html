@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizzamania - Order Your Food</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffefd5;
+      position: relative;
+    }
+
+    header {
+      background-color: #ffcc00;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    h1 {
+      margin: 0;
+      color: #333;
+      font-size: 36px;
+    }
+
+    main {
+      padding: 40px;
+      text-align: center;
+      background-color: #ffdab9;
+      border-radius: 15px;
+      width: 80%;
+      margin: 20px auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #444;
+    }
+
+    form {
+      background-color: #fff8dc;
+      padding: 20px;
+      border-radius: 10px;
+      display: inline-block;
+      text-align: left;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1.5s ease-in-out;
+      width: 100%;
+    }
+
+    select, input[type="checkbox"], button {
+      margin-bottom: 15px;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 100%;
+      animation: slideIn 1s ease;
+    }
+
+    select:disabled {
+      color: #ccc;
+    }
+
+    label {
+      display: block;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .extras {
+      margin: 20px 0;
+    }
+
+    .buttons {
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #ff6347;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+
+    button:hover {
+      background-color: #e55342;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 600px) {
+      main {
+        width: 95%;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      form {
+        padding: 15px;
+      }
+
+      label, select, input[type="checkbox"], button {
+        font-size: 14px;
+      }
+
+      button {
+        padding: 8px 16px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      0% { transform: translateY(20px); }
+      100% { transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Pizzamania</h1>
+  </header>
+
+  <main>
+    <h2>Order Your Favorite Food</h2>
+    <form id="orderForm">
+      <label for="food">Select Your Food:</label>
+      <select name="food" id="food" required>
+        <option value="" disabled selected>Select an option</option>
+        <option value="veg_pizza">Veg Pizza</option>
+        <option value="nonveg_pizza">Non-Veg Pizza</option>
+        <option value="delux_veg_pizza">Delux Veg Pizza</option>
+        <option value="delux_nonveg_pizza">Delux Non-Veg Pizza</option>
+        <option value="fries">French Fries</option>
+        <option value="wings">Chicken Wings</option>
+      </select>
+
+      <div class="extras">
+        <label>
+          <input type="checkbox" name="extra_cheese" value="yes" id="extraCheese"> Extra Cheese
+        </label>
+        <label>
+          <input type="checkbox" name="extra_toppings" value="yes" id="extraToppings"> Extra Toppings
+        </label>
+        <label>
+          <input type="checkbox" name="takeaway" value="yes"> Takeaway
+        </label>
+      </div>
+
+      <div class="buttons">
+        <button type="button" onclick="calculateTotal()">Submit Order</button>
+        <button type="reset" id="cancelButton">Cancel</button>
+      </div>
+    </form>
+  </main>
+  
+  <div style="text-align: center; margin: 20px;">
+    <!-- Go to Index Page Button  -->
+    <a href="index.html">
+        <button style="padding: 15px 25px; font-size: 18px; color: #fff; background-color: #007bff; border: none; border-radius: 8px; cursor: pointer; margin-right: 15px; transition: background-color 0.3s ease, transform 0.3s ease;">
+            Go to Profile Page
+        </button>
+    </a>
+</div>
+
+  <footer>
+    <p>&copy; 2024 Pizzamania | Created by Sai</p>
+  </footer>
+
+  <script>
+    const foodSelect = document.getElementById('food');
+    const extraCheese = document.getElementById('extraCheese');
+    const extraToppings = document.getElementById('extraToppings');
+    const cancelButton = document.getElementById('cancelButton');
+
+    // Automatically select cheese and toppings for Delux Pizzas
+    foodSelect.addEventListener('change', function() {
+      if (foodSelect.value === 'delux_veg_pizza' || foodSelect.value === 'delux_nonveg_pizza') {
+        extraCheese.checked = true;
+        extraToppings.checked = true;
+        extraCheese.disabled = true;
+        extraToppings.disabled = true;
+      } else {
+        extraCheese.checked = false;
+        extraToppings.checked = false;
+        extraCheese.disabled = false;
+        extraToppings.disabled = false;
+      }
+    });
+
+    // Cancel button resets form
+    cancelButton.addEventListener('click', function() {
+      document.getElementById('orderForm').reset();
+      extraCheese.disabled = false;
+      extraToppings.disabled = false;
+    });
+
+    function calculateTotal() {
+      const food = document.getElementById('food').value;
+      const extraCheese = document.getElementById('extraCheese').checked ? 100 : 0;
+      const extraToppings = document.getElementById('extraToppings').checked ? 150 : 0;
+      const takeaway = document.querySelector('input[name="takeaway"]:checked') ? 20 : 0;
+
+      let price = 0;
+      switch (food) {
+        case "veg_pizza": price = 300; break;
+        case "nonveg_pizza": price = 400; break;
+        case "delux_veg_pizza": price = 550; break;
+        case "delux_nonveg_pizza": price = 650; break;
+        case "fries": price = 100; break;
+        case "wings": price = 250; break;
+      }
+
+      const totalPrice = price + extraCheese + extraToppings + takeaway;
+      const tip = totalPrice * 0.1;
+      const mainTotal = totalPrice + tip;
+
+      alert(`Total Price: ₹${totalPrice}\n10% Tip: ₹${Math.round(tip)}\nMain Total: ₹${Math.round(mainTotal)}`);
+    }
+  </script>
+</body>
+</html>
