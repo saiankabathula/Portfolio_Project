@@ -65,8 +65,7 @@ nav ul li a:hover::after{
 .header-text h1 span{
     color: #f62366;
 }
-
-/* =========About=========== */
+/* ************************ About *************************** */
 #about{
     padding: 10px 0px;
     color: #ababab;
@@ -136,8 +135,57 @@ nav ul li a:hover::after{
 .tab-contents.active-tab{
     display: block;
 }
-/* -----------------------Contact Me----------------------- */
-
+/* ************************ Projects *************************** */
+section {
+    /* padding: 2rem; */
+    padding: 10px 0px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.project-grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+}
+.project-item {
+    background-color: #847171d3;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+.project-item img {
+    width: 100%;
+    border-radius: 8px;
+}
+.project-item {
+    transition: transform 0.3s ease;
+}
+.project-item:hover {
+    transform: scale(1.10);
+    box-shadow: 0 0 10px rgba(228, 225, 225, 0.956);
+}
+.project h3{
+    text-decoration: underline;
+}
+.project p{
+    margin-top: 12px;
+}
+.btn-primary{
+    display: inline-block;
+    margin: 12px;
+    padding: 6px 13px;
+    background-color: #5799ef;
+    border: none;
+    border-radius: 4px;
+}
+.btn-primary:hover{
+    background-color: #60eb5d;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: inset;
+}
+/* ************************ contact *************************** */
 #contact{
     margin-top: 30px;
 }
@@ -209,8 +257,21 @@ form .btn3{
     color: red;
     margin-top: -5px;
 }
-
-/* -----------------------Small Screens----------------------- */
+/* ************************ Footer *************************** */
+.portfolio-footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+.portfolio-footer a {
+    color: #00bcd4;
+    text-decoration: none;
+}
+.portfolio-footer a:hover {
+    text-decoration: underline;
+}
+/* ************************ Screen *************************** */
 nav .fas{
     display: none;
 }
